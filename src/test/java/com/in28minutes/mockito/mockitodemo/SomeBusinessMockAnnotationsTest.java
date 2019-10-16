@@ -1,7 +1,6 @@
 package com.in28minutes.mockito.mockitodemo;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
@@ -28,13 +27,14 @@ public class SomeBusinessMockAnnotationsTest {
 	
 	@Test
 	public void testFindTheGreatestFromAllData_ForOneValue() {
-		DataService dataServiceMock = mock(DataService.class);
-		//dataServiceMock.retriveAllData() => new int[] {24,15,3}
 		when(dataServiceMock.retriveAllData()).thenReturn(new int[] {15});
-		
-		
-		SomeBusinessImpl businessImpl = new SomeBusinessImpl(dataServiceMock);
-		assertEquals(15,businessImpl.findTheGreatestFromAllData());
+		assertEquals(15,someBusinessImpl.findTheGreatestFromAllData());
+	}
+	
+	@Test
+	public void testFindTheGreatestFromAllData_NoValues() {
+		when(dataServiceMock.retriveAllData()).thenReturn(new int[] {});
+		assertEquals(Integer.MIN_VALUE,someBusinessImpl.findTheGreatestFromAllData());
 	}
 
 }
